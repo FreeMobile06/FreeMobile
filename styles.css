@@ -1,0 +1,262 @@
+/* Style global */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Conteneur pour l'encadré "Free" */
+.free-logo-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 3cm;
+    height: 1.5cm;
+    background-color: #e60000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Encadré "Free" */
+.free-logo {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    text-align: center;
+    line-height: 1.5cm;
+    font-size: 1.5em; /* Utilisation de em pour être responsive */
+    color: #e60000;
+    font-family: 'Roboto Slab', serif;
+    font-style: italic;
+    border: 1px solid #ddd;
+}
+
+/* Barre de navigation */
+.navbar {
+    background-color: #e60000;
+    padding: 0;
+    height: 1.5cm;
+    text-align: center;
+    line-height: 1.5cm;
+}
+
+/* Liste de navigation */
+.nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-list li {
+    margin: 0 10px;
+}
+
+.nav-list a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.nav-list a:hover {
+    text-decoration: underline;
+}
+
+/* Case à cocher "Abonné Freebox" */
+.freebox-checkbox {
+    text-align: center;
+    margin: 1em 0;
+}
+
+.freebox-checkbox label {
+    font-size: 1em;
+    color: #333;
+}
+
+.freebox-checkbox input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Section des offres */
+.offers-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2em 1em;
+    background-color: white;
+}
+
+.offer-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 1em;
+    margin: 1em;
+    flex: 1 1 calc(100% - 2em); /* Ajustement pour les petits écrans */
+    max-width: 300px; /* Limitation de la largeur */
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.offer-card:hover {
+    transform: translateY(-5px);
+}
+
+.offer-card h2 {
+    color: #e60000;
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.offer-card h3 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.offer-card ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1em;
+    text-align: left;
+    margin-bottom: 1em;
+}
+
+.offer-card ul li {
+    margin-bottom: 0.5em;
+}
+
+.cta-button {
+    text-decoration: none;
+    color: white;
+    background-color: #e60000;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #cc0000;
+}
+
+/* Pied de page */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    margin-top: auto;
+}
+
+/* Style pour les messages d'erreur */
+#error-messages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#error-messages.show {
+    opacity: 1;
+}
+
+#error-messages #alert-message {
+    font-size: 2em;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    animation: flash 1s infinite;
+    margin-bottom: 1em;
+}
+
+/* Animation de clignotement */
+@keyframes flash {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Pages d'erreur */
+.error-page {
+    position: absolute;
+    width: 90%; /* Utilisation du pourcentage pour l'adaptabilité */
+    max-width: 600px;
+    background: white;
+    color: black;
+    border: 1px solid #0078d4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 1em;
+    font-size: 1em;
+    font-weight: normal;
+    transform-origin: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 1s, transform 1s;
+}
+
+/* Apparition des pages d'erreur avec un effet éparpillé mais centré */
+.error-page:nth-child(n+2) {
+    top: calc(30% + 10px * var(--i));
+    left: calc(30% + 10px * var(--i));
+    opacity: 1;
+    transform: rotate(calc(10deg * (1 - 2 * (var(--i) % 2))));
+}
+
+/* Ajouter une croix rouge en haut à droite des pages d'erreur */
+.error-page::before {
+    content: "×";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    color: red;
+    cursor: pointer;
+    background: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border: 2px solid red;
+}
+
+/* Media Queries pour les écrans plus petits */
+@media (max-width: 768px) {
+    .offer-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-list li {
+        margin: 10px 0;
+    }
+}

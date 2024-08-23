@@ -30,7 +30,7 @@ body {
     background-color: white;
     text-align: center;
     line-height: 1.5cm;
-    font-size: 1.5em; /* Utilisation de em pour être responsive */
+    font-size: 1.5em;
     color: #e60000;
     font-family: 'Roboto Slab', serif;
     font-style: italic;
@@ -102,8 +102,8 @@ body {
     border-radius: 10px;
     padding: 1em;
     margin: 1em;
-    flex: 1 1 calc(100% - 2em); /* Ajustement pour les petits écrans */
-    max-width: 300px; /* Limitation de la largeur */
+    flex: 1 1 calc(100% - 2em);
+    max-width: 300px;
     text-align: center;
     transition: transform 0.3s ease;
 }
@@ -163,10 +163,11 @@ footer {
 /* Style pour les messages d'erreur */
 #error-messages {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -190,73 +191,108 @@ footer {
     margin-bottom: 1em;
 }
 
-/* Animation de clignotement */
+/* Conteneur de la barre de progression */
+#progress-container {
+    position: fixed;
+    bottom: 2em;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10000;
+}
+
+#progress-wrapper {
+    background-color: white;
+    border-radius: 15px;
+    padding: 1em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    position: relative;
+}
+
+#progress-title {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+#progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+#progress-fill {
+    height: 100%;
+    width: 0%;
+    background-image: repeating-linear-gradient(
+        45deg,
+        #87CEEB,
+        #87CEEB 10px,
+        #4682B4 10px,
+        #4682B4 20px
+    );
+    transition: width 0.5s;
+}
+
+#progress-percentage {
+    margin-top: 0.5em;
+    font-size: 1.2em;
+}
+
+/* Animation de flash pour le message d'alerte */
 @keyframes flash {
-    0%, 100% {
+    0% {
         opacity: 1;
     }
     50% {
-        opacity: 0;
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
     }
 }
 
-/* Pages d'erreur */
 .error-page {
     position: absolute;
-    width: 90%; /* Utilisation du pourcentage pour l'adaptabilité */
-    max-width: 600px;
-    background: white;
-    color: black;
-    border: 1px solid #0078d4;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 300px;
+    background-color: white;
+    border-radius: 10px;
     padding: 1em;
-    font-size: 1em;
-    font-weight: normal;
-    transform-origin: center;
-    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0.5em 0;
+    transform: translate(-50%, -50%);
+    transition: transform 0.5s ease, opacity 0.5s ease;
     opacity: 0;
-    transition: opacity 1s, transform 1s;
 }
 
-/* Apparition des pages d'erreur avec un effet éparpillé mais centré */
-.error-page:nth-child(n+2) {
-    top: calc(30% + 10px * var(--i));
-    left: calc(30% + 10px * var(--i));
-    opacity: 1;
-    transform: rotate(calc(10deg * (1 - 2 * (var(--i) % 2))));
-}
-
-/* Ajouter une croix rouge en haut à droite des pages d'erreur */
-.error-page::before {
-    content: "×";
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5em;
-    color: red;
-    cursor: pointer;
-    background: white;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+.error-page h3 {
+    margin: 0 0 0.5em 0;
+    color: #e60000;
     text-align: center;
-    line-height: 30px;
-    border: 2px solid red;
+    font-size: 1.5em;
 }
 
-/* Media Queries pour les écrans plus petits */
-@media (max-width: 768px) {
-    .offer-card {
-        flex: 1 1 100%;
-        max-width: 100%;
-    }
+.error-page p {
+    color: #333;
+    font-size: 1em;
+}
 
-    .nav-list {
-        flex-direction: column;
-        align-items: center;
-    }
+/* Apparition des pages d'erreur au centre avec un décalage vers le haut */
+#error-messages.show .error-page {
+    opacity: 1;
+    transform: translate(calc(-50% + 300px), -50%);
+}
 
-    .nav-list li {
-        margin: 10px 0;
-    }
+/* Positionnement du signe d'avertissement */
+#warning-sign {
+    font-size: 5em;
+    color: red;
+    display: none;
+    margin-top: 2em;
+    animation: flash 1s infinite;
 }
